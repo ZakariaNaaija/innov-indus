@@ -1,0 +1,61 @@
+<div class="panel-header panel-header-lg">
+  <canvas hidden baseChart   id="fake"
+          [datasets]="items[0].data"
+          [labels]="items[0].label"
+          [colors]="lineBigDashboardChartColors"
+          [options]="lineBigDashboardChartOptions"
+          [chartType]="lineBigDashboardChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+    <canvas baseChart   *ngFor="let item of items" id="bigDashboardChart"
+                [datasets]="item.data"
+                [labels]="item.label"
+                [colors]="lineBigDashboardChartColors"
+                [options]="lineBigDashboardChartOptions"
+                [chartType]="lineBigDashboardChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-lg-4 col-md-6" *ngFor="let aircraftRul of aircraftsRul" >
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">{{aircraftRul.status}}</h5>
+          <h4 class="card-title">{{aircraftRul.name}}</h4>
+          <div >
+            <a type="button" [routerLink]="'/aircraft-status/'+aircraftRul.name" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" >
+              <i class="now-ui-icons loader_gear"></i>
+            </a>
+
+          <a type="button" (click)="resetGraph(aircraftRul.name)" class="btn btn-round btn-default dropdown-toggle btn-simple btn-icon no-caret" >
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+          </a>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-area">
+            <!-- <canvas id="lineChartWithNumbersAndGridData" lineChartWithNumbersAndGridLabels lineChartExampleWithNumbersAndGrid"></canvas> -->
+            <canvas baseChart class="lineChartExampleWithNumbersAndGrid"
+                        [datasets]="aircraftRul.rul"
+                        [labels]="aircraftRul.timeseries"
+                        [colors]="aircraftRul.colorsOp"
+                        [options]="lineChartWithNumbersAndGridOptions"
+                        [chartType]="lineChartWithNumbersAndGridType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="now-ui-icons arrows-1_refresh-69"></i> Just Updated
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
